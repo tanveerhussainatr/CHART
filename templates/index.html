@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>AJAX Example</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/ajax_table_example.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/histogram-bellcurve.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+</head>
+
+<body>
+
+
+    <h2> [Example] </h2>
+
+
+    <div class="container">
+        <input type="radio" name="rdoChart" value="pie" checked> Pie
+        <input type="radio" name="rdoChart" value="histogram"> histogram
+
+        <form enctype="multipart/form-data" action='download' method="POST">
+            <div class="form-row mb-3">
+                <div class="input-group col-sm-8">
+                    <div class="input-group-prepend">
+                        <button type="button" id="ajax_data_load"
+                            class="btn btn-secondary fixed-button-size">Run</button>
+                    </div>
+                    <select name="user" class="custom-select fixed-button-size">
+                        <option value="one">Option..</option>
+                        <option value="one">One</option>
+                        <option value="two">Two</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <table id="jds-example" class="table">
+            <thead>
+                <tr>
+                    {% for col in data.columns %}
+                    <th scope="col"> {{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in data.iterrows() %}
+                <tr class="trRowData">
+                    {% for k in value %}
+                    <td scope="row">{{ k }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <figure class="highcharts-figure">
+            <div id="pieChart"></div>
+            <p class="highcharts-description">
+                Chart showing how Highcharts can automatically compute a histogram from
+                source data. In this chart, the source data is also displayed as a
+                scatter plot.
+            </p>
+        </figure>
+        <figure class="highcharts-figure">
+            <div id="histoChart"></div>
+            <p class="highcharts-description">
+                Chart showing how Highcharts can automatically compute a histogram from
+                source data. In this chart, the source data is also displayed as a
+                scatter plot.
+            </p>
+        </figure>
+    </div>
+
+
+</body>
+
+</html>
